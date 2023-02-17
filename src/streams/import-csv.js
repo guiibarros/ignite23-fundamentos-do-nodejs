@@ -1,7 +1,30 @@
 import fs from 'node:fs'
 import { parse } from 'csv-parse'
+import readline from 'node:readline'
 
 const csvUrl = new URL('./tasks.csv', import.meta.url)
+
+// ==> Alternative without csv-parse library <==
+// async function execute() {
+//   const csvLines = readline.createInterface({
+//     input: fs.createReadStream(csvUrl),
+//   })
+
+//   let index = 0
+
+//   for await (const line of csvLines) {
+//     if (index !== 0) {
+//       const [title, description] = line.split(',')
+
+//       console.log({
+//         title,
+//         description,
+//       })
+//     }
+
+//     index++
+//   }
+// }
 
 async function execute() {
   const csvStream = fs.createReadStream(csvUrl)
